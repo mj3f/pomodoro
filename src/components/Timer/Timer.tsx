@@ -1,4 +1,4 @@
-import { faPlay, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faPause, faPlay, faSync } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import SessionChanger from '../SessionChanger/SessionChanger';
@@ -26,11 +26,16 @@ export default function Timer() {
     const [breakLength, setBreakLength] = useState(5);
     const [sessionLength, setSessionLength] = useState(25);
     const [countdown, setCountdown] = useState('25:00');
+    const [isPlaying, setIsPlaying] = useState(false);
     // startTimer(10);
 
     const setSession = (value: number) => {
         setSessionLength(value);
         setCountdown(`${value < 10 ? '0' : ''}${value}:00`);
+    }
+
+    const setPlayOrPause = () => {
+        setIsPlaying(prevValue => !prevValue);
     }
 
     return (
@@ -41,10 +46,10 @@ export default function Timer() {
                 <SessionChanger title="Break Length" value={breakLength} onValueChange={setBreakLength} className="flex-1" />
             </div>
             <div className="flex flex-1 w-full items-center justify-center space-x-4">
-                <button>
-                    <FontAwesomeIcon icon={faPlay} className="text-red-500 text-3xl" />
+                <button onClick={setPlayOrPause}>
+                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} className="text-red-500 text-3xl" />
                 </button>
-                <button>
+                <button onClick={() => setSession(25)}>
                     <FontAwesomeIcon icon={faSync} className="text-red-500 text-3xl" />
                 </button>
             </div>

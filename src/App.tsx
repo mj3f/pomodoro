@@ -5,7 +5,7 @@ import { faTrash, faTrashRestore } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-gray-200">
       <header className="flex flex-row w-full p-4">
         <h1 className="text-5xl text-red-500 font-semibold">Pomodoro</h1>
         <div className="flex flex-1 justify-end space-x-4">
@@ -13,7 +13,7 @@ function App() {
           <button className="bg-red-500 hover:bg-red-400 text-gray-50 shadow rounded p-2"><FontAwesomeIcon icon={faTrash} />{' '} Clear session</button>
         </div>
       </header>
-      <main className="flex w-full bg-gray-50 pt-10">
+      <main className="flex w-full pt-10">
         <Timer />
       </main>
     </div>
