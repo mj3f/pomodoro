@@ -2,6 +2,7 @@ import { faPause, faPlay, faSync } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState, useEffect, useRef } from 'react';
 import SessionChanger from '../SessionChanger/SessionChanger';
+import bellAudio from '../../assets/bell.mp3';
 
 export default function Timer() {
     const [breakLength, setBreakLength] = useState(5);
@@ -9,6 +10,7 @@ export default function Timer() {
     const [countdownValues, setCountdownValue] = useState<CountdownValues>({ output: '25:00' });
     const [isBreakTime, setIsBreakTime] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [playAudio, setPlayAudio] = useState(new Audio(bellAudio));
 
     let countdownTimeout = useRef<NodeJS.Timeout>(null);
 
@@ -62,6 +64,8 @@ export default function Timer() {
                 } else {
                     // Countdown has finished for the current session/break.
                     setIsBreakTime(prevValue => !prevValue);
+                    playAudio.currentTime = 0;
+                    playAudio.play();
                 }
             }
         }
@@ -78,6 +82,12 @@ export default function Timer() {
         setIsPlaying(prevValue => !prevValue);
     }
 
+    const handleReset = () => {
+        setSession(sessionLength);
+        playAudio.pause();
+        playAudio.currentTime = 0;
+    };
+
     return (
         <div className="flex flex-col justify-center items-center w-full">
             <div className="flex flex-col lg:flex-row w-full justify-center items-center py-5">
@@ -85,17 +95,17 @@ export default function Timer() {
                 <SessionChanger title="Break Interval" value={breakLength} onValueChange={setBreakLength} isPlaying={isPlaying} className="flex-1" />
             </div>
             <div className="flex flex-1 flex-col w-full items-center justify-center py-5">
-                <h3 className="text-8xl font-semibold text-red-500 flex-1 text-center">{countdownValues.output}</h3>
+                <h3 className="text-8xl w-full font-semibold text-red-500 text-center">{countdownValues.output}</h3>
                 <div className="flex flex-row space-x-4">
                     <button className="text-red-500 text-3xl" onClick={setPlayOrPause}>
                         <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
                     </button>
-                    <button className="text-red-500 text-3xl disabled:opacity-50 disabled:cursor-not-allowed" disabled={isPlaying} onClick={() => setSession(sessionLength)}> 
+                    <button className="text-red-500 text-3xl disabled:opacity-50 disabled:cursor-not-allowed" disabled={isPlaying} onClick={handleReset}> 
                         <FontAwesomeIcon icon={faSync} />
                     </button>
                 </div>
             </div>
-            <div className="flex flex-1 w-full justify-center items-center py-5">
+            <div className="flex flex-1 w-full justify-center items-center">
                 <h3 className="text-3xl font-light pt-2 text-red-500">{isBreakTime ? 'Take a Break!' : isPlaying ? 'In Session.' : ''}</h3>
             </div>
         </div>
