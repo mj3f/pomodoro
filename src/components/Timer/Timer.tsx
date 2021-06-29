@@ -50,12 +50,16 @@ export default function Timer() {
                 seconds: secs
             });
 
+            console.log('dsdsdsdsdsdsdsdsdsdsd')
+
             if (secs > 0) {
                 // @ts-ignore
                 countdownTimeout.current = setTimeout(() => tick(), 1000);
             } else {
                 if (mins > 1) {
                     startCountdown(mins - 1); // repeat above steps for the next minute in the countdown.
+                } else {
+                    setPlayOrPause();
                 }
             }
         }
@@ -74,16 +78,16 @@ export default function Timer() {
     return (
         <div className="flex flex-col justify-center items-center w-full">
             <div className="flex flex-row w-full justify-center items-center">
-                <SessionChanger title="Session Length" value={sessionLength} onValueChange={setSession} className="flex-1" />
+                <SessionChanger title="Session Length" value={sessionLength} onValueChange={setSession} isPlaying={isPlaying} className="flex-1" />
                 <h3 className="text-8xl font-semibold text-red-500 flex-1 text-center">{countdownValues.output}</h3>
-                <SessionChanger title="Break Length" value={breakLength} onValueChange={setBreakLength} className="flex-1" />
+                <SessionChanger title="Break Length" value={breakLength} onValueChange={setBreakLength} isPlaying={isPlaying} className="flex-1" />
             </div>
             <div className="flex flex-1 w-full items-center justify-center space-x-4">
-                <button onClick={setPlayOrPause}>
-                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} className="text-red-500 text-3xl" />
+                <button className="text-red-500 text-3xl" onClick={setPlayOrPause}>
+                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
                 </button>
-                <button onClick={() => setSession(25)}>
-                    <FontAwesomeIcon icon={faSync} className="text-red-500 text-3xl" />
+                <button className="text-red-500 text-3xl disabled:opacity-50 disabled:cursor-not-allowed" disabled={isPlaying} onClick={() => setSession(sessionLength)}> 
+                    <FontAwesomeIcon icon={faSync} />
                 </button>
             </div>
         </div>

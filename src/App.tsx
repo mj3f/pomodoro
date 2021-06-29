@@ -9,8 +9,8 @@ function App() {
       <header className="flex flex-row w-full p-4">
         <h1 className="text-5xl text-red-500 font-semibold">Pomodoro</h1>
         <div className="flex flex-1 justify-end space-x-4">
-          <button className="bg-red-500 hover:bg-red-400 text-gray-50 shadow rounded p-2"><FontAwesomeIcon icon={faTrashRestore} />{' '} Restore previous session</button>
-          <button className="bg-red-500 hover:bg-red-400 text-gray-50 shadow rounded p-2"><FontAwesomeIcon icon={faTrash} />{' '} Clear session</button>
+          <button className="border-2 border-red-500 hover:bg-red-400 text-gray-600 hover:text-green-50 active:bg-red-600 rounded p-2"><FontAwesomeIcon icon={faTrashRestore} />{' '} Restore previous session</button>
+          <button className="border-2 border-red-500 hover:bg-red-400 text-gray-600 hover:text-green-50 active:bg-red-600 rounded p-2"><FontAwesomeIcon icon={faTrash} />{' '} Clear session</button>
         </div>
       </header>
       <main className="flex w-full pt-10">
