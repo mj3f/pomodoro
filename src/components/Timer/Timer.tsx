@@ -6,9 +6,8 @@ import SessionChanger from '../SessionChanger/SessionChanger';
 export default function Timer() {
     const [breakLength, setBreakLength] = useState(5);
     const [sessionLength, setSessionLength] = useState(25);
-    const [countdownValues, setCountdownValue] = useState<CountdownValues>({
-        output: '25:00'
-    });
+    const [countdownValues, setCountdownValue] = useState<CountdownValues>({ output: '25:00' });
+    const [isBreakTime, setIsBreakTime] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
 
     let countdownTimeout = useRef<NodeJS.Timeout>(null);
@@ -31,6 +30,10 @@ export default function Timer() {
         }
     }, []);
 
+    useEffect(() => { // Alternate between break and session interval.
+        startCountdown(isBreakTime ? breakLength : sessionLength);
+    }, [isBreakTime]);
+
 
     const startCountdown = (minutes: number, seconds?: number) => {
         let secs = seconds ? seconds : 60;
@@ -50,16 +53,15 @@ export default function Timer() {
                 seconds: secs
             });
 
-            console.log('dsdsdsdsdsdsdsdsdsdsd')
-
-            if (secs > 0) {
+            if (secs >= 0) {
                 // @ts-ignore
                 countdownTimeout.current = setTimeout(() => tick(), 1000);
             } else {
                 if (mins > 1) {
                     startCountdown(mins - 1); // repeat above steps for the next minute in the countdown.
                 } else {
-                    setPlayOrPause();
+                    // Countdown has finished for the current session/break.
+                    setIsBreakTime(prevValue => !prevValue);
                 }
             }
         }
@@ -78,9 +80,9 @@ export default function Timer() {
     return (
         <div className="flex flex-col justify-center items-center w-full">
             <div className="flex flex-row w-full justify-center items-center">
-                <SessionChanger title="Session Length" value={sessionLength} onValueChange={setSession} isPlaying={isPlaying} className="flex-1" />
+                <SessionChanger title="Session Interval" value={sessionLength} onValueChange={setSession} isPlaying={isPlaying} className="flex-1" />
                 <h3 className="text-8xl font-semibold text-red-500 flex-1 text-center">{countdownValues.output}</h3>
-                <SessionChanger title="Break Length" value={breakLength} onValueChange={setBreakLength} isPlaying={isPlaying} className="flex-1" />
+                <SessionChanger title="Break Interval" value={breakLength} onValueChange={setBreakLength} isPlaying={isPlaying} className="flex-1" />
             </div>
             <div className="flex flex-1 w-full items-center justify-center space-x-4">
                 <button className="text-red-500 text-3xl" onClick={setPlayOrPause}>
@@ -89,6 +91,9 @@ export default function Timer() {
                 <button className="text-red-500 text-3xl disabled:opacity-50 disabled:cursor-not-allowed" disabled={isPlaying} onClick={() => setSession(sessionLength)}> 
                     <FontAwesomeIcon icon={faSync} />
                 </button>
+            </div>
+            <div className="flex flex-1 w-full justify-center items-center">
+                <h3 className="text-3xl font-light pt-2 text-red-500">{isBreakTime ? 'Take a Break!' : isPlaying ? 'In Session.' : ''}</h3>
             </div>
         </div>
         

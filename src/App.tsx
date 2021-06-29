@@ -5,7 +5,7 @@ import { faTrash, faTrashRestore } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   return (
-    <div className="flex flex-col h-screen bg-gray-200">
+    <div className="flex flex-col h-screen bg-gray-100">
       <header className="flex flex-row w-full p-4">
         <h1 className="text-5xl text-red-500 font-semibold">Pomodoro</h1>
         <div className="flex flex-1 justify-end space-x-4">
