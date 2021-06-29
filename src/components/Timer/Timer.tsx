@@ -71,6 +71,7 @@ export default function Timer() {
     const setSession = (value: number) => {
         setSessionLength(value);
         setCountdownValue({ output: `${value < 10 ? '0' : ''}${value}:00` });
+        setIsBreakTime(false);
     }
 
     const setPlayOrPause = () => {
@@ -79,20 +80,22 @@ export default function Timer() {
 
     return (
         <div className="flex flex-col justify-center items-center w-full">
-            <div className="flex flex-row w-full justify-center items-center">
+            <div className="flex flex-col lg:flex-row w-full justify-center items-center py-5">
                 <SessionChanger title="Session Interval" value={sessionLength} onValueChange={setSession} isPlaying={isPlaying} className="flex-1" />
-                <h3 className="text-8xl font-semibold text-red-500 flex-1 text-center">{countdownValues.output}</h3>
                 <SessionChanger title="Break Interval" value={breakLength} onValueChange={setBreakLength} isPlaying={isPlaying} className="flex-1" />
             </div>
-            <div className="flex flex-1 w-full items-center justify-center space-x-4">
-                <button className="text-red-500 text-3xl" onClick={setPlayOrPause}>
-                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
-                </button>
-                <button className="text-red-500 text-3xl disabled:opacity-50 disabled:cursor-not-allowed" disabled={isPlaying} onClick={() => setSession(sessionLength)}> 
-                    <FontAwesomeIcon icon={faSync} />
-                </button>
+            <div className="flex flex-1 flex-col w-full items-center justify-center py-5">
+                <h3 className="text-8xl font-semibold text-red-500 flex-1 text-center">{countdownValues.output}</h3>
+                <div className="flex flex-row space-x-4">
+                    <button className="text-red-500 text-3xl" onClick={setPlayOrPause}>
+                        <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
+                    </button>
+                    <button className="text-red-500 text-3xl disabled:opacity-50 disabled:cursor-not-allowed" disabled={isPlaying} onClick={() => setSession(sessionLength)}> 
+                        <FontAwesomeIcon icon={faSync} />
+                    </button>
+                </div>
             </div>
-            <div className="flex flex-1 w-full justify-center items-center">
+            <div className="flex flex-1 w-full justify-center items-center py-5">
                 <h3 className="text-3xl font-light pt-2 text-red-500">{isBreakTime ? 'Take a Break!' : isPlaying ? 'In Session.' : ''}</h3>
             </div>
         </div>
