@@ -8,13 +8,19 @@ import { Dialog, Transition } from '@headlessui/react';
 
 function App() {
   const [notes, addNote] = useState<string[]>([]);
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [note, setNote] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const modalCompleteButtonRef = useRef(null);
 
   const handleAddNote = () => {
 	  setModalIsOpen(true);
 	  // const note = 'Test 123';
 	  // addNote([...notes, note]);
+  };
+
+  const createNote = () => {
+	addNote([note, ...notes]);
+	setModalIsOpen(false);
   };
 
   return (
@@ -88,7 +94,8 @@ function App() {
 						Add Note
 					</Dialog.Title>
 					<div className="mt-2">
-						<input type="text" className="focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-500 rounded p-2 w-full mb-2 shadow" />
+						<input type="text" className="focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-500 rounded p-2 w-full mb-2 shadow"
+							   onChange={e => setNote(e.target.value)} />
 					</div>
 					<div className="float-right space-x-2">
 						<button className="inline-flex justify-center hover:bg-gray-100 text-gray-600 active:bg-gray-200 rounded shadow py-2 px-6" 
@@ -96,7 +103,7 @@ function App() {
 							Cancel
 						</button>
 						<button className="inline-flex justify-center bg-red-400 hover:bg-red-500 text-green-50 active:bg-red-600 rounded py-2 px-6" 
-								onClick={() => setModalIsOpen(false)}
+								onClick={createNote}
 								ref={modalCompleteButtonRef}>
 							OK
 						</button>
