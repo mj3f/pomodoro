@@ -106,7 +106,7 @@ export default function Timer() {
                 </div>
             </div>
             <div className="flex flex-1 w-full justify-center items-center">
-                <h3 className="text-3xl font-light pt-2 text-red-500">{isBreakTime ? 'Take a Break!' : isPlaying ? 'In Session.' : ''}</h3>
+                <h3 className="text-3xl font-light pt-2 text-red-500">{isBreakTime ? 'Take a Break!' : isPlaying ? 'In Session.' : '...'}</h3>
             </div>
         </div>
         
