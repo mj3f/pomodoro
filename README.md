@@ -13,3 +13,8 @@ I'm looking to branch out from purely using Bootstrap for front-ends, and have r
 If you have cloned this repo and are wanting to run it locally, there are two ways:
 - `npm i; npm run start`, or
 - `docker build -t ${IMAGE_NAME} . && docker run -p 3000:3000 --name ${CONTAINER_NAME} ${IMAGE_NAME}` 
+
+### Screenshots
+
+![Alt text](./screenshots/add-note.png?raw=true "Adding a new note")
+![Alt text](./screenshots/countdown.png?raw=true "Working")
