@@ -2,7 +2,7 @@ import { useState, useRef, Fragment } from 'react';
 import './App.css';
 import Timer from './components/Timer/Timer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faTrashRestore } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Note from './components/Note/Note';
 import { Dialog, Transition } from '@headlessui/react';
 
@@ -11,12 +11,6 @@ function App() {
   const [note, setNote] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const modalCompleteButtonRef = useRef(null);
-
-  const handleAddNote = () => {
-	  setModalIsOpen(true);
-	  // const note = 'Test 123';
-	  // addNote([...notes, note]);
-  };
 
   const createNote = () => {
 	addNote([note, ...notes]);
@@ -29,9 +23,7 @@ function App() {
 			<header className="flex lg:flex-row lg:justify-between items-center flex-col w-full p-4">
 				<h1 className="text-5xl text-red-500 font-semibold">Pomodoro</h1>
 				<div className="flex flex-1 lg:justify-end space-x-4">
-				<button className="border-2 border-red-500 hover:bg-red-400 text-gray-600 hover:text-green-50 active:bg-red-600 rounded p-2">
-					<FontAwesomeIcon icon={faTrashRestore} />{' '} Restore previous session
-				</button>
+					<p className="text-gray-600 p-2">v1.0</p>
 				</div>
 			</header>
 			<main className="flex flex-col w-full pt-10">
@@ -41,7 +33,7 @@ function App() {
 				<div className="flex flex-1 flex-col w-full px-4 pt-10">
 					<div className="flex flex-1 w-full flex-row space-x-4">
 						<button className="border-2 border-red-500 hover:bg-red-400 text-gray-600 hover:text-green-50 active:bg-red-600 rounded p-2 w-32"
-								onClick={handleAddNote}>
+								onClick={() => setModalIsOpen(true)}>
 						<FontAwesomeIcon icon={faPlus} />{' '} Add Note
 						</button>
 						<button className="border-2 border-red-500 hover:bg-red-400 text-gray-600 hover:text-green-50 active:bg-red-600 rounded p-2 w-32"

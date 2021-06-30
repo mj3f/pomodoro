@@ -10,7 +10,8 @@ export default function Timer() {
     const [countdownValues, setCountdownValue] = useState<CountdownValues>({ output: '25:00' });
     const [isBreakTime, setIsBreakTime] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [playAudio, setPlayAudio] = useState(new Audio(bellAudio));
+    
+    const playAudio = new Audio(bellAudio);
 
     let countdownTimeout = useRef<NodeJS.Timeout>(null);
 
@@ -95,7 +96,7 @@ export default function Timer() {
                 <SessionChanger title="Break Interval" value={breakLength} onValueChange={setBreakLength} isPlaying={isPlaying} className="flex-1" />
             </div>
             <div className="flex flex-1 flex-col w-full items-center justify-center py-5">
-                <h3 className="text-8xl w-full font-semibold text-red-500 text-center">{countdownValues.output}</h3>
+                <h3 className="text-8xl font-semibold text-red-500 mx-auto p-4 w-64 overflow-hidden">{countdownValues.output}</h3>
                 <div className="flex flex-row space-x-4">
                     <button className="text-red-500 text-3xl" onClick={setPlayOrPause}>
                         <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
