@@ -28,7 +28,7 @@ function App() {
 			</header>
 			<main className="flex flex-col w-full pt-10">
 				<div className="flex flex-1 w-full pb-10 border-b-4 border-gray-200">
-				<Timer />
+					<Timer />
 				</div>
 				<div className="flex flex-1 flex-col w-full px-4 pt-10">
 					<div className="flex flex-1 w-full flex-row space-x-4">
@@ -41,9 +41,9 @@ function App() {
 							<FontAwesomeIcon icon={faTrash} />{' '} Remove all
 						</button>
 					</div>
-				<div className="flex flex-row w-full justify-items-start space-x-4 pt-4 flex-wrap">
-					{notes.map((note: string) => <Note content={note} />)}          
-				</div>
+					<div className="flex flex-row w-full justify-items-start space-x-4 pt-4 flex-wrap">
+						{notes.map((note: string) => <Note content={note} />)}          
+					</div>
 				</div>
 			</main>
 		</div>
@@ -55,53 +55,50 @@ function App() {
 				className="fixed inset-0 z-10 overflow-y-auto"
 				onClose={() => setModalIsOpen(false)}>
 				<div className="min-h-screen px-4 text-center">
-					<Transition.Child
-					as={Fragment}
-					enter="ease-out duration-300"
-					enterFrom="opacity-0"
-					enterTo="opacity-100"
-					leave="ease-in duration-200"
-					leaveFrom="opacity-100"
-					leaveTo="opacity-0">
+					<Transition.Child 	as={Fragment}
+										enter="ease-out duration-300"
+										enterFrom="opacity-0"
+										enterTo="opacity-100"
+										leave="ease-in duration-200"
+										leaveFrom="opacity-100"
+										leaveTo="opacity-0"
+					>
 						<Dialog.Overlay className="fixed inset-0" />
 					</Transition.Child>
 
-				{/* This element is to trick the browser into centering the modal contents. */}
-				<span
-					className="inline-block h-screen align-middle"
-					aria-hidden="true"
-				>
-					&#8203;
-				</span>
-				<Transition.Child
-					as={Fragment}
-					enter="ease-out duration-300"
-					enterFrom="opacity-0 scale-95"
-					enterTo="opacity-100 scale-100"
-					leave="ease-in duration-200"
-					leaveFrom="opacity-100 scale-100"
-					leaveTo="opacity-0 scale-95">
-					<div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-					<Dialog.Title as="h3" className="text-3xl font-semibold text-red-500">
-						Add Note
-					</Dialog.Title>
-					<div className="mt-2">
-						<input type="text" className="focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-500 rounded p-2 w-full mb-2 shadow"
-							   onChange={e => setNote(e.target.value)} />
-					</div>
-					<div className="float-right space-x-2">
-						<button className="inline-flex justify-center hover:bg-gray-100 text-gray-600 active:bg-gray-200 rounded shadow py-2 px-6" 
-								onClick={() => setModalIsOpen(false)}>
-							Cancel
-						</button>
-						<button className="inline-flex justify-center bg-red-400 hover:bg-red-500 text-green-50 active:bg-red-600 rounded py-2 px-6" 
-								onClick={createNote}
-								ref={modalCompleteButtonRef}>
-							OK
-						</button>
-					</div>
-					</div>
-				</Transition.Child>
+					{/* This element is to trick the browser into centering the modal contents. */}
+					<span className="inline-block h-screen align-middle" aria-hidden="true">
+						&#8203;
+					</span>
+					<Transition.Child
+						as={Fragment}
+						enter="ease-out duration-300"
+						enterFrom="opacity-0 scale-95"
+						enterTo="opacity-100 scale-100"
+						leave="ease-in duration-200"
+						leaveFrom="opacity-100 scale-100"
+						leaveTo="opacity-0 scale-95">
+						<div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+							<Dialog.Title as="h3" className="text-3xl font-semibold text-red-500">
+								Add Note
+							</Dialog.Title>
+							<div className="mt-2">
+								<input type="text" className="focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent text-gray-500 rounded p-2 w-full mb-2 shadow"
+									onChange={e => setNote(e.target.value)} />
+							</div>
+							<div className="float-right space-x-2">
+								<button className="inline-flex justify-center hover:bg-gray-100 text-gray-600 active:bg-gray-200 rounded shadow py-2 px-6" 
+										onClick={() => setModalIsOpen(false)}>
+									Cancel
+								</button>
+								<button className="inline-flex justify-center bg-red-400 hover:bg-red-500 text-green-50 active:bg-red-600 rounded py-2 px-6" 
+										onClick={createNote}
+										ref={modalCompleteButtonRef}>
+									OK
+								</button>
+							</div>
+						</div>
+					</Transition.Child>
 				</div>
 			</Dialog> 
 		</Transition>
